@@ -5,6 +5,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge"
 import { Calendar, DollarSign, MapPin, Users, Plus } from "lucide-react"
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+// (optional alternative) export const fetchCache = 'default-no-store';
+
 export default async function ProjectsPage() {
   const projects = await listProjects()
 

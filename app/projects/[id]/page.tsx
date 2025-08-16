@@ -15,6 +15,10 @@ import {
   CheckCircle
 } from "lucide-react"
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+// (optional alternative) export const fetchCache = 'default-no-store';
+
 interface ProjectPageProps {
   params: {
     id: string
