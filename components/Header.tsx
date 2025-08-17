@@ -94,8 +94,16 @@ export function Header() {
     return () => subscription.unsubscribe()
   }, [])
 
-  const handleSignOut = () => {
-    router.push('/auth/sign-out')
+  const handleSignOut = async () => {
+    try {
+      const supabase = createClient()
+      await supabase.auth.signOut()
+      router.push('/')
+    } catch (error) {
+      console.error('Sign out error:', error)
+      // Fallback: redirect to home page
+      router.push('/')
+    }
   }
 
     // Show header immediately, authentication will update when ready

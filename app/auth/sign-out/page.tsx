@@ -4,6 +4,9 @@ import { useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { createClient } from "../../../lib/supabase/client"
 
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
 export default function SignOutPage() {
   const router = useRouter()
 
@@ -11,9 +14,13 @@ export default function SignOutPage() {
     const signOut = async () => {
       try {
         const supabase = createClient()
-        await supabase.auth.signOut()
+        const { error } = await supabase.auth.signOut()
         
-        // Redirect to home page after successful sign out
+        if (error) {
+          console.error('Sign out error:', error)
+        }
+        
+        // Always redirect to home page after sign out attempt
         router.push('/')
       } catch (error) {
         console.error('Sign out error:', error)
@@ -22,16 +29,8 @@ export default function SignOutPage() {
       }
     }
 
-    // Add a timeout to prevent getting stuck
-    const timeoutId = setTimeout(() => {
-      console.log('Sign out timeout, redirecting to home')
-      router.push('/')
-    }, 3000) // 3 second timeout
-
+    // Execute sign out immediately
     signOut()
-
-    // Cleanup timeout if component unmounts
-    return () => clearTimeout(timeoutId)
   }, [router])
 
   return (
