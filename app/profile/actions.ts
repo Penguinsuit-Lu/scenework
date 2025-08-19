@@ -160,60 +160,77 @@ export async function updateProfile(profileData: {
   location?: string
   skills?: string[]
 }): Promise<void> {
-  const supabase = await createClient()
-  
-  const { data: { user }, error: authError } = await supabase.auth.getUser()
-  if (authError || !user) {
-    throw new Error("Authentication required")
-  }
+  try {
+    console.log('🔄 Starting profile update...')
+    const supabase = await createClient()
+    
+    const { data: { user }, error: authError } = await supabase.auth.getUser()
+    if (authError || !user) {
+      console.error('❌ Auth error:', authError)
+      throw new Error("Authentication required")
+    }
 
-  // Validate required fields
-  if (!profileData.full_name || !profileData.full_name.trim()) {
-    throw new Error("Full name is required")
-  }
+    console.log('✅ User authenticated:', user.id)
 
-  if (!profileData.handle || !profileData.handle.trim()) {
-    throw new Error("Handle is required")
-  }
+    // Validate required fields
+    if (!profileData.full_name || !profileData.full_name.trim()) {
+      throw new Error("Full name is required")
+    }
 
-  if (!profileData.role || !profileData.role.trim()) {
-    throw new Error("Role is required")
-  }
+    if (!profileData.handle || !profileData.handle.trim()) {
+      throw new Error("Handle is required")
+    }
 
-  // Validate handle format
-  const handleRegex = /^[a-z0-9_]+$/
-  if (!handleRegex.test(profileData.handle)) {
-    throw new Error("Handle must contain only lowercase letters, numbers, and underscores")
-  }
+    if (!profileData.role || !profileData.role.trim()) {
+      throw new Error("Role is required")
+    }
 
-  if (profileData.handle.length < 3 || profileData.handle.length > 20) {
-    throw new Error("Handle must be between 3 and 20 characters")
-  }
+    // Validate handle format
+    const handleRegex = /^[a-z0-9_]+$/
+    if (!handleRegex.test(profileData.handle)) {
+      throw new Error("Handle must contain only lowercase letters, numbers, and underscores")
+    }
 
-  // Check handle availability
-  const isHandleAvailable = await checkHandleAvailability(profileData.handle, user.id)
-  if (!isHandleAvailable) {
-    throw new Error("Handle is already taken")
-  }
+    if (profileData.handle.length < 3 || profileData.handle.length > 20) {
+      throw new Error("Handle must be between 3 and 20 characters")
+    }
 
-  // Sanitize and prepare data
-  const sanitizedData = {
-    full_name: profileData.full_name.trim(),
-    handle: profileData.handle.trim().toLowerCase(),
-    role: profileData.role.trim(),
-    bio: profileData.bio?.trim() || null,
-    location: profileData.location?.trim() || null,
-    skills: profileData.skills || []
-  }
+    console.log('✅ Input validation passed')
 
-  // Update profile
-  const { error: updateError } = await supabase
-    .from('profiles')
-    .update(sanitizedData)
-    .eq('id', user.id)
+    // Check handle availability
+    const isHandleAvailable = await checkHandleAvailability(profileData.handle, user.id)
+    if (!isHandleAvailable) {
+      throw new Error("Handle is already taken")
+    }
 
-  if (updateError) {
-    console.error('Failed to update profile:', updateError)
-    throw new Error("Failed to update profile")
+    console.log('✅ Handle availability checked')
+
+    // Sanitize and prepare data
+    const sanitizedData = {
+      full_name: profileData.full_name.trim(),
+      handle: profileData.handle.trim().toLowerCase(),
+      role: profileData.role.trim(),
+      bio: profileData.bio?.trim() || null,
+      location: profileData.location?.trim() || null,
+      skills: profileData.skills || []
+    }
+
+    console.log('📝 Updating profile with data:', sanitizedData)
+
+    // Update profile
+    const { error: updateError } = await supabase
+      .from('profiles')
+      .update(sanitizedData)
+      .eq('id', user.id)
+
+    if (updateError) {
+      console.error('❌ Failed to update profile:', updateError)
+      throw new Error(`Failed to update profile: ${updateError.message}`)
+    }
+
+    console.log('✅ Profile updated successfully')
+  } catch (error) {
+    console.error('❌ Profile update error:', error)
+    throw error
   }
 }
