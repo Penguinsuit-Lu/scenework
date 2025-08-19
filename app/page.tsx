@@ -29,11 +29,11 @@ export default async function Home() {
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl animate-pulse delay-500"></div>
       </div>
 
-      {/* Main Three-Panel Layout */}
+      {/* Main Layout */}
       <main className="mx-auto max-w-6xl px-4 py-10 bg-black">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
-          {/* Left Panel - Hero Content */}
-          <aside className="md:col-span-3 md:sticky md:top-20 self-start">
+          {/* Left Panel - Hero Content (Hidden on mobile) */}
+          <aside className="hidden md:block md:col-span-3 md:sticky md:top-20 self-start">
             <div className="text-left">
               {/* New Heading */}
               <h1 className="text-xs text-muted-foreground mb-6 max-w-xs leading-relaxed">Shoot that<br />film already.</h1>
@@ -59,60 +59,86 @@ export default async function Home() {
                   </Button>
                 </Link>
               </div>
-
-              {/* Extended Projects Preview */}
-              <div className="space-y-3">
-                <h3 className="text-sm font-semibold text-white">Featured Projects</h3>
-                <div className="space-y-2">
-                  <div className="bg-white/5 border border-white/10 rounded-lg p-3 hover:bg-white/10 transition-colors">
-                    <div className="flex items-center gap-2 mb-1">
-                      <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                      <span className="text-xs text-green-400">Casting</span>
-                    </div>
-                    <h4 className="text-sm font-medium text-white">Urban Dreams</h4>
-                    <p className="text-xs text-gray-400">Seeking lead actor for indie drama</p>
-                  </div>
-                  <div className="bg-white/5 border border-white/10 rounded-lg p-3 hover:bg-white/10 transition-colors">
-                    <div className="flex items-center gap-2 mb-1">
-                      <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                      <span className="text-xs text-blue-400">Crew</span>
-                    </div>
-                    <h4 className="text-sm font-medium text-white">The Last Light</h4>
-                    <p className="text-xs text-gray-400">Looking for experienced DP</p>
-                  </div>
-                  <div className="bg-white/5 border border-white/10 rounded-lg p-3 hover:bg-white/10 transition-colors">
-                    <div className="flex items-center gap-2 mb-1">
-                      <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
-                      <span className="text-xs text-purple-400">Post-Production</span>
-                    </div>
-                    <h4 className="text-sm font-medium text-white">Night City</h4>
-                    <p className="text-xs text-gray-400">Need sound designer for sci-fi</p>
-                  </div>
-                  <div className="bg-white/5 border border-white/10 rounded-lg p-3 hover:bg-white/10 transition-colors">
-                    <div className="flex items-center gap-2 mb-1">
-                      <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
-                      <span className="text-xs text-orange-400">Production</span>
-                    </div>
-                    <h4 className="text-sm font-medium text-white">Desert Road</h4>
-                    <p className="text-xs text-gray-400">Seeking location manager</p>
-                  </div>
-                </div>
-              </div>
             </div>
           </aside>
 
-          {/* Middle Panel - Feed */}
+          {/* Middle Panel - Feed and Mobile Hero */}
           <section className="md:col-span-6 space-y-6">
+            {/* Mobile Hero Section (Only on mobile) */}
+            <div className="md:hidden text-center mb-8">
+              <h1 className="text-2xl font-bold text-white mb-4">Shoot that film already.</h1>
+              <p className="text-white/80 mb-6 leading-relaxed">
+                Empowering indie filmmakers to create their masterpiece.<br />
+                Discover your cast or join a crew, and start rolling on your next project.
+              </p>
+              <div className="flex flex-col gap-3 max-w-xs mx-auto">
+                <Link href="/projects">
+                  <Button size="sm" className="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold px-4 py-2 rounded-lg shadow-lg hover:shadow-amber-500/25 transition-all duration-300 transform hover:scale-105">
+                    <Play className="w-4 h-4 mr-2" />
+                    Explore Projects
+                  </Button>
+                </Link>
+                <Link href="/projects/new">
+                  <Button size="sm" variant="outline" className="w-full border-2 border-amber-400 text-amber-400 hover:bg-amber-400 hover:text-white font-bold px-4 py-2 rounded-lg shadow-lg hover:shadow-amber-500/25 transition-all duration-300 transform hover:scale-105">
+                    <Plus className="w-4 h-4 mr-2" />
+                    Post Project
+                  </Button>
+                </Link>
+              </div>
+            </div>
+
             {/* Feed Content */}
             <div className="space-y-4">
               <h2 className="text-xs text-muted-foreground mb-4 text-center">Build your Community.</h2>
               <HomePostForm />
               {items.length ? <HomeFeed items={items} /> : <div className="rounded-2xl border border-white/20 p-6 opacity-80 text-white/80">Follow people to see posts here.</div>}
             </div>
+
+            {/* Featured Projects Section (Moved here, visible on all devices) */}
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <h3 className="text-lg font-semibold text-white">Featured Projects</h3>
+                <Link href="/projects" className="text-amber-400 text-sm hover:text-amber-300">View All</Link>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div className="bg-white/5 border border-white/10 rounded-lg p-3 hover:bg-white/10 transition-colors">
+                  <div className="flex items-center gap-2 mb-1">
+                    <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                    <span className="text-xs text-green-400">Casting</span>
+                  </div>
+                  <h4 className="text-sm font-medium text-white">Urban Dreams</h4>
+                  <p className="text-xs text-gray-400">Seeking lead actor for indie drama</p>
+                </div>
+                <div className="bg-white/5 border border-white/10 rounded-lg p-3 hover:bg-white/10 transition-colors">
+                  <div className="flex items-center gap-2 mb-1">
+                    <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                    <span className="text-xs text-blue-400">Crew</span>
+                  </div>
+                  <h4 className="text-sm font-medium text-white">The Last Light</h4>
+                  <p className="text-xs text-gray-400">Looking for experienced DP</p>
+                </div>
+                <div className="bg-white/5 border border-white/10 rounded-lg p-3 hover:bg-white/10 transition-colors">
+                  <div className="flex items-center gap-2 mb-1">
+                    <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                    <span className="text-xs text-purple-400">Post-Production</span>
+                  </div>
+                  <h4 className="text-sm font-medium text-white">Night City</h4>
+                  <p className="text-xs text-gray-400">Need sound designer for sci-fi</p>
+                </div>
+                <div className="bg-white/5 border border-white/10 rounded-lg p-3 hover:bg-white/10 transition-colors">
+                  <div className="flex items-center gap-2 mb-1">
+                    <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
+                    <span className="text-xs text-orange-400">Production</span>
+                  </div>
+                  <h4 className="text-sm font-medium text-white">Desert Road</h4>
+                  <p className="text-xs text-gray-400">Seeking location manager</p>
+                </div>
+              </div>
+            </div>
           </section>
 
-          {/* Right Panel - HomeProfileCard */}
-          <aside className="md:col-span-3 md:sticky md:top-20 self-start space-y-6">
+          {/* Right Panel - HomeProfileCard and Marketplace (Hidden on mobile) */}
+          <aside className="hidden md:block md:col-span-3 md:sticky md:top-20 self-start space-y-6">
             <HomeProfileCard me={me} />
             
             {/* Extended Marketplace Preview */}
