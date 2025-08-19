@@ -11,3 +11,4 @@ export function timeAgo(date: string | Date): string {
   return `${Math.floor(diffInSeconds / 31536000)}y ago`
 }
 
+

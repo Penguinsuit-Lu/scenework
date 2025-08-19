@@ -35,3 +35,4 @@ CREATE POLICY "Users can delete their own profile pictures" ON storage.objects
 -- Success message
 SELECT 'Profile pictures storage bucket created successfully!' as status;
 
+

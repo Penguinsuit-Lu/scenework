@@ -47,3 +47,4 @@ CREATE INDEX IF NOT EXISTS profiles_handle_idx ON public.profiles(handle);
 -- Success message
 SELECT 'Profiles table created successfully! You can now load your profile.' as status;
 
+

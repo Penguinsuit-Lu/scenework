@@ -236,3 +236,4 @@ export default async function ListingPage({ params }: ListingPageProps) {
   )
 }
 
+

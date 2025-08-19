@@ -51,7 +51,7 @@ export default function ProfileEditPage() {
         }, 5000)
         
         console.log('🔑 Creating Supabase client...')
-        const supabase = createClient()
+      const supabase = createClient()
         console.log('✅ Supabase client created')
         
         console.log('👤 Getting current user...')
@@ -65,7 +65,7 @@ export default function ProfileEditPage() {
         
         if (user) {
           console.log('✅ User found:', user.id)
-          setUser(user)
+      setUser(user)
           
           // Fetch user's profile data
           console.log('📋 Fetching profile data...')
@@ -625,7 +625,7 @@ export default function ProfileEditPage() {
                 initial={profile?.top_films || []} 
                 onSave={handleTopFilmsSave} 
               />
-            </div>
+          </div>
           )}
         </div>
       </div>
