@@ -135,6 +135,48 @@ export default async function Home() {
                 </div>
               </div>
             </div>
+
+            {/* Marketplace Section (Added for mobile, visible on all devices) */}
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <h3 className="text-lg font-semibold text-white">Marketplace</h3>
+                <Link href="/marketplace" className="text-amber-400 text-sm hover:text-amber-300">View All</Link>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div className="bg-white/5 border border-white/10 rounded-lg p-3 hover:bg-white/10 transition-colors">
+                  <div className="flex items-center gap-2 mb-1">
+                    <div className="w-2 h-2 bg-amber-500 rounded-full"></div>
+                    <span className="text-xs text-amber-400">Equipment</span>
+                  </div>
+                  <h4 className="text-sm font-medium text-white">ARRI Alexa Mini</h4>
+                  <p className="text-xs text-gray-400">$500/day • Miami</p>
+                </div>
+                <div className="bg-white/5 border border-white/10 rounded-lg p-3 hover:bg-white/10 transition-colors">
+                  <div className="flex items-center gap-2 mb-1">
+                    <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                    <span className="text-xs text-blue-400">Venue</span>
+                  </div>
+                  <h4 className="text-sm font-medium text-white">Downtown Studio</h4>
+                  <p className="text-xs text-gray-400">$800/day • LA</p>
+                </div>
+                <div className="bg-white/5 border border-white/10 rounded-lg p-3 hover:bg-white/10 transition-colors">
+                  <div className="flex items-center gap-2 mb-1">
+                    <div className="w-2 h-2 bg-amber-500 rounded-full"></div>
+                    <span className="text-xs text-amber-400">Equipment</span>
+                  </div>
+                  <h4 className="text-sm font-medium text-white">DJI Ronin 4D</h4>
+                  <p className="text-xs text-gray-400">$300/day • NYC</p>
+                </div>
+                <div className="bg-white/5 border border-white/10 rounded-lg p-3 hover:bg-white/10 transition-colors">
+                  <div className="flex items-center gap-2 mb-1">
+                    <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                    <span className="text-xs text-blue-400">Venue</span>
+                  </div>
+                  <h4 className="text-sm font-medium text-white">Warehouse Space</h4>
+                  <p className="text-xs text-gray-400">$600/day • Chicago</p>
+                </div>
+              </div>
+            </div>
           </section>
 
           {/* Right Panel - HomeProfileCard and Marketplace (Hidden on mobile) */}
